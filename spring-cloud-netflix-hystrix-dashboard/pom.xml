@@ -12,7 +12,7 @@
     </parent>
 
     <properties>
-        <spring-cloud.version>1.0.0.BUILD-SNAPSHOT</spring-cloud.version>
+        <spring-cloud.version>1.0.0.M2</spring-cloud.version>
     </properties>
 
     <dependencies>

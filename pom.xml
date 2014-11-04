@@ -38,27 +38,27 @@
             <dependency>
               <groupId>org.springframework.cloud</groupId>
               <artifactId>spring-cloud-config-client</artifactId>
-              <version>1.0.0.BUILD-SNAPSHOT</version>
+              <version>1.0.0.M2</version>
             </dependency>
             <dependency>
               <groupId>org.springframework.cloud</groupId>
               <artifactId>spring-cloud-netflix-core</artifactId>
-              <version>1.0.0.BUILD-SNAPSHOT</version>
+              <version>1.0.0.M2</version>
             </dependency>
             <dependency>
               <groupId>org.springframework.cloud</groupId>
               <artifactId>spring-cloud-netflix-eureka-server</artifactId>
-              <version>1.0.0.BUILD-SNAPSHOT</version>
+              <version>1.0.0.M2</version>
             </dependency>
             <dependency>
               <groupId>org.springframework.cloud</groupId>
               <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
-              <version>1.0.0.BUILD-SNAPSHOT</version>
+              <version>1.0.0.M2</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-netflix-turbine</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.M2</version>
             </dependency>
             <dependency>
                 <groupId>com.netflix.archaius</groupId>
