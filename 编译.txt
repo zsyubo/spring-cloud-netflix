@@ -1,0 +1,1 @@
+mvn clean  compile  package install -Dcheckstyle.skip=true -Dmaven.test.skip=true

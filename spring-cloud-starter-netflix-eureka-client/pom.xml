@@ -10,6 +10,7 @@
 	<name>Spring Cloud Starter Netflix Eureka Client</name>
 	<description>Spring Cloud Starter Netflix Eureka Client</description>
 	<url>https://projects.spring.io/spring-cloud</url>
+	<packaging>jar</packaging>	
 	<organization>
 		<name>Pivotal Software, Inc.</name>
 		<url>https://www.spring.io</url>
@@ -64,4 +65,21 @@
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
 	</dependencies>
+<!--  <build>-->
+<!--    <plugins>-->
+<!--      <plugin>-->
+<!--        <artifactId>maven-jar-plugin</artifactId>-->
+<!--        <version>3.0.2</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--			<id>default-jar</id>-->
+<!--			<phase>package</phase>-->
+<!--			<goals>-->
+<!--				<goal>jar</goal>-->
+<!--			</goals>-->
+<!--		  </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
+<!--    </plugins>-->
+<!--  </build>-->
 </project>
