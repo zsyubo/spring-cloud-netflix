@@ -106,11 +106,19 @@ public class EurekaServerAutoConfiguration implements WebMvcConfigurer {
 	 */
 	public static final CloudJacksonJson JACKSON_JSON = new CloudJacksonJson();
 
+	/**
+	 * 监控相关的把
+	 * @return
+	 */
 	@Bean
 	public HasFeatures eurekaServerFeature() {
 		return HasFeatures.namedFeature("Eureka Server", EurekaServerAutoConfiguration.class);
 	}
 
+	/**
+	 * 控制台
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnProperty(prefix = "eureka.dashboard", name = "enabled", matchIfMissing = true)
 	public EurekaController eurekaController() {
@@ -137,12 +145,21 @@ public class EurekaServerAutoConfiguration implements WebMvcConfigurer {
 		return codec == null ? CodecWrappers.getCodec(CodecWrappers.XStreamXml.class) : codec;
 	}
 
+	/**
+	 * ReplicationClientAdditionalFilters 向别的 eureka-server 发起请求时,会执行过滤
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public ReplicationClientAdditionalFilters replicationClientAdditionalFilters() {
 		return new ReplicationClientAdditionalFilters(Collections.emptySet());
 	}
 
+	/**
+	 * 实例注册器？
+	 * @param serverCodecs
+	 * @return
+	 */
 	@Bean
 	public PeerAwareInstanceRegistry peerAwareInstanceRegistry(ServerCodecs serverCodecs) {
 		this.eurekaClient.getApplications(); // force initialization
@@ -159,6 +176,13 @@ public class EurekaServerAutoConfiguration implements WebMvcConfigurer {
 				this.applicationInfoManager, replicationClientAdditionalFilters);
 	}
 
+	/**
+	 * EurekaServerContext 一看就是上下文
+	 * @param serverCodecs
+	 * @param registry
+	 * @param peerEurekaNodes
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public EurekaServerContext eurekaServerContext(ServerCodecs serverCodecs, PeerAwareInstanceRegistry registry,
@@ -167,6 +191,12 @@ public class EurekaServerAutoConfiguration implements WebMvcConfigurer {
 				this.applicationInfoManager);
 	}
 
+	/**
+	 * 核心类，包含了所有的配置信息和上下文
+	 * @param registry
+	 * @param serverContext
+	 * @return
+	 */
 	@Bean
 	public EurekaServerBootstrap eurekaServerBootstrap(PeerAwareInstanceRegistry registry,
 			EurekaServerContext serverContext) {
@@ -257,6 +287,9 @@ public class EurekaServerAutoConfiguration implements WebMvcConfigurer {
 	}
 
 	/**
+	 * PeerEurekaNodes，当/refresh被调用时更新对等体。
+	 * 只有当eureka.client.use-dns-for-fetching-service-urls为false并且下列属性之一发生变化时，才会更新对等体。
+	 *
 	 * {@link PeerEurekaNodes} which updates peers when /refresh is invoked. Peers are
 	 * updated only if <code>eureka.client.use-dns-for-fetching-service-urls</code> is
 	 * <code>false</code> and one of following properties have changed.
