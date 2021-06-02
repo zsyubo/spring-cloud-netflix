@@ -152,6 +152,7 @@
 		<module>spring-cloud-starter-netflix-eureka-server</module>
 		<module>spring-cloud-netflix-eureka-client-tls-tests</module>
 		<module>docs</module>
+        <module>eureka-server</module>
     </modules>
 	<profiles>
 		<profile>

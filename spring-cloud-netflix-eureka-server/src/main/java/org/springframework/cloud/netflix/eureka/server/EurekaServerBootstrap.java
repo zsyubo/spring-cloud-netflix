@@ -67,7 +67,9 @@ public class EurekaServerBootstrap {
 
 	public void contextInitialized(ServletContext context) {
 		try {
+			// 初始化环境， 现版本，空实现
 			initEurekaEnvironment();
+			// 促使话eureka上下文
 			initEurekaServerContext();
 
 			context.setAttribute(EurekaServerContext.class.getName(), this.serverContext);
@@ -108,7 +110,7 @@ public class EurekaServerBootstrap {
 					this.applicationInfoManager);
 			this.awsBinder.start();
 		}
-
+		// 设置静态上下文
 		EurekaServerContextHolder.initialize(this.serverContext);
 
 		log.info("Initialized server context");
