@@ -43,6 +43,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
+ * 一些http client方面的配置吧
+ * 参数初始化
  * @author Daniel Lavoie
  */
 @Configuration(proxyBeanMethods = false)
@@ -50,12 +52,25 @@ public class DiscoveryClientOptionalArgsConfiguration {
 
 	protected static final Log logger = LogFactory.getLog(DiscoveryClientOptionalArgsConfiguration.class);
 
+	/**
+	 *  Eureka 客户端 TLS, 也就是eureka client启用https吧
+	 * @return
+	 */
 	@Bean
 	@ConfigurationProperties("eureka.client.tls")
 	public TlsProperties tlsProperties() {
 		return new TlsProperties();
 	}
 
+	/**
+	 * （ps：spring 5中新的HttpClient框架WebClient， 默认是不起用）
+	 * 如果为false则加载
+	 * @param tlsProperties
+	 * @param eurekaClientHttpRequestFactorySupplier
+	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 */
 	@Bean
 	@ConditionalOnClass(name = "org.springframework.web.client.RestTemplate")
 	@ConditionalOnMissingClass("com.sun.jersey.api.client.filter.ClientFilter")
@@ -66,6 +81,7 @@ public class DiscoveryClientOptionalArgsConfiguration {
 			EurekaClientHttpRequestFactorySupplier eurekaClientHttpRequestFactorySupplier)
 			throws GeneralSecurityException, IOException {
 		logger.info("Eureka HTTP Client uses RestTemplate.");
+		// DefaultEurekaClientHttpRequestFactorySupplier
 		RestTemplateDiscoveryClientOptionalArgs result = new RestTemplateDiscoveryClientOptionalArgs(
 				eurekaClientHttpRequestFactorySupplier);
 		setupTLS(result, tlsProperties);
@@ -79,6 +95,7 @@ public class DiscoveryClientOptionalArgsConfiguration {
 		return new DefaultEurekaClientHttpRequestFactorySupplier();
 	}
 
+	// ConditionalOnMissingBean 是没有才注入
 	@Bean
 	@ConditionalOnClass(name = "com.sun.jersey.api.client.filter.ClientFilter")
 	@ConditionalOnMissingBean(value = AbstractDiscoveryClientOptionalArgs.class, search = SearchStrategy.CURRENT)

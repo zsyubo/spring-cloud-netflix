@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 /**
+ * 如果配置服务器恰好是Eureka实例，则对其进行额外配置。
  * Extra configuration for config server if it happens to be a Eureka instance.
  *
  * @author Dave Syer

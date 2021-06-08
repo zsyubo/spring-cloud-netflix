@@ -23,6 +23,7 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.lang.Nullable;
 
 /**
+ * Eureka客户端将使用的ClientHttpRequestFactory的供应商。
  * Supplier for the {@link ClientHttpRequestFactory} to be used by Eureka client.
  *
  * @author Marcin Grzejszczak
