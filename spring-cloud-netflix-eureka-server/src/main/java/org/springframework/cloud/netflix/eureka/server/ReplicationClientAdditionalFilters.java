@@ -22,6 +22,7 @@ import java.util.LinkedHashSet;
 import com.sun.jersey.api.client.filter.ClientFilter;
 
 /**
+ * 复制客户端附加过滤器
  * @author Yuxin Bai
  */
 public class ReplicationClientAdditionalFilters {
