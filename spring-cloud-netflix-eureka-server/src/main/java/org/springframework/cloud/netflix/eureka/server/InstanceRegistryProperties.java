@@ -33,13 +33,12 @@ public class InstanceRegistryProperties {
 	public static final String PREFIX = "eureka.instance.registry";
 
 	/*
-	* 默认的预期客户数，默认为1。 设置  expectedNumberOfClientsSendingRenews为非零，
-		以确保即使一个孤立的的服务器也能根据注册数量调整其驱逐策略（当它为0时，
-		即使是成功的注册也不会重新设置速率阈值。 InstanceRegistry.register()）。)
-	 * Default number of expected client, defaults to 1. Setting
-	 * expectedNumberOfClientsSendingRenews to non-zero to ensure that even an isolated
-	 * server can adjust its eviction policy to the number of registrations (when it's
-	 * zero, even a successful registration won't reset the rate threshold in
+	 * 默认的预期客户数，默认为1。 设置 expectedNumberOfClientsSendingRenews为非零，
+	 * 以确保即使一个孤立的的服务器也能根据注册数量调整其驱逐策略（当它为0时， 即使是成功的注册也不会重新设置速率阈值。
+	 * InstanceRegistry.register()）。) Default number of expected client, defaults to 1.
+	 * Setting expectedNumberOfClientsSendingRenews to non-zero to ensure that even an
+	 * isolated server can adjust its eviction policy to the number of registrations (when
+	 * it's zero, even a successful registration won't reset the rate threshold in
 	 * InstanceRegistry.register()).
 	 */
 	@Value("${eureka.server.expectedNumberOfRenewsPerMin:1}") // for backwards

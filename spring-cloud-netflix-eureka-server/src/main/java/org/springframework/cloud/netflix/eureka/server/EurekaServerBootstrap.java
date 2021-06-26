@@ -116,6 +116,7 @@ public class EurekaServerBootstrap {
 		log.info("Initialized server context");
 
 		// Copy registry from neighboring eureka node
+		// 把其他server所注册的节点同步到本地
 		int registryCount = this.registry.syncUp();
 		this.registry.openForTraffic(this.applicationInfoManager, registryCount);
 

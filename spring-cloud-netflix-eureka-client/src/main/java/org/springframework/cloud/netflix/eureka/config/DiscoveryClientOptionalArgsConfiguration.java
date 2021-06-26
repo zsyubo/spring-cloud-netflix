@@ -43,8 +43,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * 一些http client方面的配置吧
- * 参数初始化
+ * 一些http client方面的配置吧 参数初始化
+ *
  * @author Daniel Lavoie
  */
 @Configuration(proxyBeanMethods = false)
@@ -53,7 +53,7 @@ public class DiscoveryClientOptionalArgsConfiguration {
 	protected static final Log logger = LogFactory.getLog(DiscoveryClientOptionalArgsConfiguration.class);
 
 	/**
-	 *  Eureka 客户端 TLS, 也就是eureka client启用https吧
+	 * Eureka 客户端 TLS, 也就是eureka client启用https吧
 	 * @return
 	 */
 	@Bean
@@ -63,8 +63,7 @@ public class DiscoveryClientOptionalArgsConfiguration {
 	}
 
 	/**
-	 * （ps：spring 5中新的HttpClient框架WebClient， 默认是不起用）
-	 * 如果为false则加载
+	 * （ps：spring 5中新的HttpClient框架WebClient， 默认是不起用） 如果为false则加载
 	 * @param tlsProperties
 	 * @param eurekaClientHttpRequestFactorySupplier
 	 * @return
