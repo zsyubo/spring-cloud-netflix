@@ -1,1 +1,4 @@
 mvn clean  compile  package install -Dcheckstyle.skip=true -Dmaven.test.skip=true
+
+
+版本 3.0.1

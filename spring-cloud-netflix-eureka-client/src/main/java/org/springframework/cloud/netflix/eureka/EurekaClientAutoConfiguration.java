@@ -82,9 +82,9 @@ import static org.springframework.cloud.commons.util.IdUtils.getDefaultInstanceI
  * @author Tim Ysewyn
  */
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties
+@EnableConfigurationProperties   // 读取配置
 @ConditionalOnClass(EurekaClientConfig.class)
-@ConditionalOnProperty(value = "eureka.client.enabled", matchIfMissing = true)
+@ConditionalOnProperty(value = "eureka.client.enabled", matchIfMissing = true)  // 没配置的话。默认就是true
 @ConditionalOnDiscoveryEnabled
 @AutoConfigureBefore({ CommonsClientAutoConfiguration.class, ServiceRegistryAutoConfiguration.class })
 @AutoConfigureAfter(name = { "org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration",
@@ -104,6 +104,11 @@ public class EurekaClientAutoConfiguration {
 		return HasFeatures.namedFeature("Eureka Client", EurekaClient.class);
 	}
 
+	/**
+	 * EurekaClient的一些配置项
+	 * @param env
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnMissingBean(value = EurekaClientConfig.class, search = SearchStrategy.CURRENT)
 	public EurekaClientConfigBean eurekaClientConfigBean(ConfigurableEnvironment env) {
@@ -222,6 +227,9 @@ public class EurekaClientAutoConfiguration {
 		return new EurekaAutoServiceRegistration(context, registry, registration);
 	}
 
+	/**
+	 * 不会进，，有疑问
+	 */
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnMissingRefreshScope
 	protected static class EurekaClientConfiguration {
@@ -257,6 +265,9 @@ public class EurekaClientAutoConfiguration {
 
 	}
 
+	/**
+	 * 会进
+	 */
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnRefreshScope
 	protected static class RefreshableEurekaClientConfiguration {
@@ -268,8 +279,8 @@ public class EurekaClientAutoConfiguration {
 		private AbstractDiscoveryClientOptionalArgs<?> optionalArgs;
 
 		@Bean(destroyMethod = "shutdown")
-		@ConditionalOnMissingBean(value = EurekaClient.class, search = SearchStrategy.CURRENT)
-		@org.springframework.cloud.context.config.annotation.RefreshScope
+		@ConditionalOnMissingBean(value = EurekaClient.class, search = SearchStrategy.CURRENT)  // 当前上下文容器内没有这个Bean
+		@org.springframework.cloud.context.config.annotation.RefreshScope   // 属于Spring cloud config动态配置的注解。。。。当环境上下文发生变化，则刷新Bean。。。注解修饰的实例会被运行时刷新
 		@Lazy
 		public EurekaClient eurekaClient(ApplicationInfoManager manager, EurekaClientConfig config,
 				EurekaInstanceConfig instance, @Autowired(required = false) HealthCheckHandler healthCheckHandler) {
@@ -333,22 +344,34 @@ public class EurekaClientAutoConfiguration {
 
 	}
 
+	/**
+	 * 满足下面条件之一就可以
+	 */
 	private static class OnMissingRefreshScopeCondition extends AnyNestedCondition {
-
+		
 		OnMissingRefreshScopeCondition() {
 			super(ConfigurationPhase.REGISTER_BEAN);
 		}
 
+		/**
+		 * 不存在这个RefreshScope  class类
+		 */
 		@ConditionalOnMissingClass("org.springframework.cloud.context.scope.refresh.RefreshScope")
 		static class MissingClass {
 
 		}
 
+		/**
+		 *  spring上下文中不存在这个这个实例
+		 */
 		@ConditionalOnMissingBean(RefreshAutoConfiguration.class)
 		static class MissingScope {
 
 		}
 
+		/**
+		 * eureka.client.refresh.enable 这个值是false。。。。但是默认这个值是空
+		 */
 		@ConditionalOnProperty(value = "eureka.client.refresh.enable", havingValue = "false")
 		static class OnPropertyDisabled {
 
