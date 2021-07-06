@@ -82,9 +82,9 @@ import static org.springframework.cloud.commons.util.IdUtils.getDefaultInstanceI
  * @author Tim Ysewyn
  */
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties   // 读取配置
+@EnableConfigurationProperties // 读取配置
 @ConditionalOnClass(EurekaClientConfig.class)
-@ConditionalOnProperty(value = "eureka.client.enabled", matchIfMissing = true)  // 没配置的话。默认就是true
+@ConditionalOnProperty(value = "eureka.client.enabled", matchIfMissing = true) // 没配置的话。默认就是true
 @ConditionalOnDiscoveryEnabled
 @AutoConfigureBefore({ CommonsClientAutoConfiguration.class, ServiceRegistryAutoConfiguration.class })
 @AutoConfigureAfter(name = { "org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration",
@@ -279,8 +279,10 @@ public class EurekaClientAutoConfiguration {
 		private AbstractDiscoveryClientOptionalArgs<?> optionalArgs;
 
 		@Bean(destroyMethod = "shutdown")
-		@ConditionalOnMissingBean(value = EurekaClient.class, search = SearchStrategy.CURRENT)  // 当前上下文容器内没有这个Bean
-		@org.springframework.cloud.context.config.annotation.RefreshScope   // 属于Spring cloud config动态配置的注解。。。。当环境上下文发生变化，则刷新Bean。。。注解修饰的实例会被运行时刷新
+		@ConditionalOnMissingBean(value = EurekaClient.class, search = SearchStrategy.CURRENT) // 当前上下文容器内没有这个Bean
+		@org.springframework.cloud.context.config.annotation.RefreshScope // 属于Spring
+																			// cloud
+																			// config动态配置的注解。。。。当环境上下文发生变化，则刷新Bean。。。注解修饰的实例会被运行时刷新
 		@Lazy
 		public EurekaClient eurekaClient(ApplicationInfoManager manager, EurekaClientConfig config,
 				EurekaInstanceConfig instance, @Autowired(required = false) HealthCheckHandler healthCheckHandler) {
@@ -292,6 +294,7 @@ public class EurekaClientAutoConfiguration {
 			// we use the
 			// object directly.
 			ApplicationInfoManager appManager;
+			// 是不是被代理了
 			if (AopUtils.isAopProxy(manager)) {
 				appManager = ProxyUtils.getTargetObject(manager);
 			}
@@ -345,16 +348,16 @@ public class EurekaClientAutoConfiguration {
 	}
 
 	/**
-	 * 满足下面条件之一就可以
+	 * 满足下面条件之一就可以,,然而都不会满足
 	 */
 	private static class OnMissingRefreshScopeCondition extends AnyNestedCondition {
-		
+
 		OnMissingRefreshScopeCondition() {
 			super(ConfigurationPhase.REGISTER_BEAN);
 		}
 
 		/**
-		 * 不存在这个RefreshScope  class类
+		 * 不存在这个RefreshScope class类
 		 */
 		@ConditionalOnMissingClass("org.springframework.cloud.context.scope.refresh.RefreshScope")
 		static class MissingClass {
@@ -362,7 +365,7 @@ public class EurekaClientAutoConfiguration {
 		}
 
 		/**
-		 *  spring上下文中不存在这个这个实例
+		 * spring上下文中不存在这个这个实例
 		 */
 		@ConditionalOnMissingBean(RefreshAutoConfiguration.class)
 		static class MissingScope {
