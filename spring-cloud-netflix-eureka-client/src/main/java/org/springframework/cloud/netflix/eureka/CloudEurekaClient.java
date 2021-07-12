@@ -70,6 +70,7 @@ public class CloudEurekaClient extends DiscoveryClient {
 		ReflectionUtils.makeAccessible(this.eurekaTransportField);
 	}
 
+	@Override
 	public ApplicationInfoManager getApplicationInfoManager() {
 		return applicationInfoManager;
 	}
